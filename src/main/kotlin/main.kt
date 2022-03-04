@@ -1,32 +1,23 @@
 fun main() {
 
-    val isMusicLover = false
-
-    val standartDiscount = 100 // руб
-    val middleDiscount = 0.05  // 5%
+    val isMusicLover = true
     val additionDiscount = 0.01  // 1%
-    val finalDiscountValue: Double
-    val finalDiscountPercentage: Double
 
     val previousPurchase = 1000000
     val currentPurchase = 5000
 
-    var finalPrice: Double = if (previousPurchase in 0..1000) {
-        currentPurchase.toDouble()
-    } else if (previousPurchase in 1001..10_000) {
-        (currentPurchase - standartDiscount).toDouble()
+    val finalPrice: Double = if (previousPurchase > 10_000) {
+        currentPurchase * 0.95
+    } else if (previousPurchase > 1000) {
+        currentPurchase - 100.0
     } else {
-        (currentPurchase - currentPurchase * middleDiscount)
+        currentPurchase.toDouble()
     }
 
-    if (isMusicLover)
-        finalPrice *= (1 - additionDiscount)
-
-    finalDiscountValue = currentPurchase - finalPrice
-    finalDiscountPercentage = 100 - finalPrice / currentPurchase * 100
-
-    println("Суммарная скидка составляет $finalDiscountPercentage %")
-    println("Экономия: $finalDiscountValue рублей")
-    println("Цена товара для покупателя $finalPrice рублей")
-
+    if (isMusicLover) {
+        val priceForMusicLover = finalPrice * (1 - additionDiscount)
+        println("Цена товара для постоянного покупателя $priceForMusicLover рублей")
+    } else {
+        println("Цена товара для покупателя $finalPrice рублей")
+    }
 }
